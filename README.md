@@ -5,10 +5,7 @@ Team Members (emails)
 3. Tanishq Chavan (tanishqchavan241@gmail.com)
 4. Rahul Chaturvedi (rahul.chaturvedi23@spit.ac.in)
 <br>
-Sure! Here's the **combined Problem Statement** for your project **StackIt – A Minimal Q\&A Forum Platform**, formatted cleanly for your GitHub `README.md` file:
-
 ---
-
 ## 🧠 Problem Statement 2: StackIt – A Minimal Q\&A Forum Platform
 
 ### 📝 Overview
