@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int             @id @default(autoincrement())
+  username      String          @unique
+  email         String          @unique
+  passwordHash  String
+  role          String          @default("user")
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now())
+  lastLogin     DateTime?
+
+  questions     Question[]
+  answers       Answer[]
+  notifications Notification[]
+  questionVotes QuestionVote[]
+  answerVotes   AnswerVote[]
+}
+
+model Question {
+  id             Int             @id @default(autoincrement())
+  userId         Int
+  title          String
+  description    String
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @default(now())
+
+  user           User            @relation(fields: [userId], references: [id])
+  answers        Answer[]
+  tags           QuestionTag[]
+  questionVotes  QuestionVote[]
+}
+
+model Answer {
+  id           Int             @id @default(autoincrement())
+  questionId   Int
+  userId       Int
+  content      String
+  isAccepted   Boolean         @default(false)
+  createdAt    DateTime        @default(now())
+
+  question     Question        @relation(fields: [questionId], references: [id])
+  user         User            @relation(fields: [userId], references: [id])
+  answerVotes  AnswerVote[]
+}
+
+model QuestionTag {
+  id         Int       @id @default(autoincrement())
+  questionId Int
+  tag        String
+
+  question   Question  @relation(fields: [questionId], references: [id])
+}
+
+model Notification {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  message   String
+  isRead    Boolean   @default(false)
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id])
+}
+
+model QuestionVote {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  questionId Int
+  voteType   String    // 'up' or 'down'
+
+  user       User      @relation(fields: [userId], references: [id])
+  question   Question  @relation(fields: [questionId], references: [id])
+
+  @@unique([userId, questionId]) // 1 user can only vote once per question
+}
+
+model AnswerVote {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  answerId  Int
+  voteType  String   // 'up' or 'down'
+
+  user      User     @relation(fields: [userId], references: [id])
+  answer    Answer   @relation(fields: [answerId], references: [id])
+
+  @@unique([userId, answerId]) // 1 user can only vote once per answer
+}
