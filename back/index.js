@@ -9,6 +9,8 @@ const prisma = new PrismaClient();
 app.use(cors());
 app.use(express.json()); 
 
+
+
 const authRoutes = require('./routes.js')
 app.use('/', authRoutes)
 

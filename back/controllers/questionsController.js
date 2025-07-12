@@ -4,7 +4,8 @@ const prisma = new PrismaClient();
 // Create a question
 exports.createQuestion = async (req, res) => {
   try {
-    const { title, description, userId } = req.body;
+    const { title, description } = req.body;
+    const userId = req.user.id; // from the JWT token
 
     const question = await prisma.question.create({
       data: {
@@ -63,39 +64,33 @@ exports.getQuestionById = async (req, res) => {
 
     res.json(question);
   } catch (err) {
+    console.error('Get question by ID error:', err);
     res.status(500).json({ error: 'Failed to get question' });
   }
 };
 
-// Update question (optional)
-exports.updateQuestion = async (req, res) => {
-  const { id } = req.params;
-  const { title, description } = req.body;
-
-  try {
-    const question = await prisma.question.update({
-      where: { id: parseInt(id) },
-      data: {
-        title,
-        description,
-        updatedAt: new Date(),
-      },
-    });
-
-    res.json(question);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to update question' });
-  }
-};
-
-// Delete question
+// Delete question (only by owner)
 exports.deleteQuestion = async (req, res) => {
   const { id } = req.params;
+  const userId = req.user.id;
 
   try {
+    const question = await prisma.question.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    if (!question) {
+      return res.status(404).json({ error: 'Question not found' });
+    }
+
+    if (question.userId !== userId) {
+      return res.status(403).json({ error: 'Not authorized to delete this question' });
+    }
+
     await prisma.question.delete({ where: { id: parseInt(id) } });
     res.json({ message: 'Question deleted successfully' });
   } catch (err) {
+    console.error('Delete question error:', err);
     res.status(500).json({ error: 'Failed to delete question' });
   }
 };
