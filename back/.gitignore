@@ -1,4 +1,4 @@
-/generated/prisma
-/.env
-/node_modules/
-/package-lock.json
+generated/prisma
+back/.env
+back/node_modules/
+back/package-lock.json
