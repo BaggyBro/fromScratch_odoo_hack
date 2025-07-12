@@ -23,9 +23,17 @@ router.delete('/questions/:id', authenticate, questionController.deleteQuestion)
 router.post('/answers', authenticate, answersController.createAnswer);
 
 // Get all answers for a question (public)
-router.get('/answers/:questionId', answersController.getAnswersByQuestion);
+router.get('/questions/:questionId/answers', answersController.getAnswersByQuestion);
+
+
 
 // Delete answer (protected)
 router.delete('/answers/:id', authenticate, answersController.deleteAnswer);
+router.patch("/questions/:id/upvote", authenticate, questionController.upvoteQuestion)
+router.patch('/questions/:id/downvote', authenticate, questionController.downvoteQuestion);
+
+
+
+
 
 module.exports = router;

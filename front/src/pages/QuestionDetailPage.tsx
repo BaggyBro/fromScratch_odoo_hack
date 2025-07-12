@@ -113,28 +113,28 @@ const questionId = Number(id)
 
   return (
     <div className="min-h-screen bg-white dark:bg-black">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 text-sm text-gray-400 mb-8">
-          <a href="/" className="hover:text-[#D3D3FF] transition-colors">
+        <nav className="flex items-center space-x-2 text-xs sm:text-sm text-gray-400 mb-4 sm:mb-8 overflow-x-auto">
+          <a href="/" className="hover:text-[#D3D3FF] transition-colors flex-shrink-0">
             <Home className="h-4 w-4" />
           </a>
-          <span>{">"}</span>
-          <a href="/" className="hover:text-[#D3D3FF] transition-colors">Question</a>
-          <span>{">"}</span>
-          <span className="text-[#D3D3FF]">{question.title}</span>
+          <span className="flex-shrink-0">{">"}</span>
+          <a href="/" className="hover:text-[#D3D3FF] transition-colors flex-shrink-0">Question</a>
+          <span className="flex-shrink-0">{">"}</span>
+          <span className="text-[#D3D3FF] flex-shrink-0 truncate">{question.title}</span>
         </nav>
 
         {/* Question */}
-        <div className="bg-[#D3D3FF] border border-gray-700 rounded-xl p-8 mb-8 shadow-2xl">
-          <h1 className="text-2xl font-bold text-black mb-4">{question.title}</h1>
+        <div className="bg-[#D3D3FF] border border-gray-700 rounded-xl p-4 sm:p-8 mb-6 sm:mb-8 shadow-2xl">
+          <h1 className="text-xl sm:text-2xl font-bold text-black mb-4">{question.title}</h1>
 
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
             {question.tags && Array.isArray(question.tags) ? (
               question.tags.map((tag: any) => (
                 <span
                   key={tag.id || tag}
-                  className="px-3 py-1 text-sm bg-black text-[#D3D3FF] rounded-full"
+                  className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-black text-[#D3D3FF] rounded-full"
                 >
                   {tag.tag || tag}
                 </span>
@@ -143,7 +143,7 @@ const questionId = Number(id)
               question.tags.split(",").map((tag: string) => (
                 <span
                   key={tag}
-                  className="px-3 py-1 text-sm bg-black text-[#D3D3FF] rounded-full"
+                  className="px-2 sm:px-3 py-1 text-xs sm:text-sm bg-black text-[#D3D3FF] rounded-full"
                 >
                   {tag.trim()}
                 </span>
@@ -151,9 +151,9 @@ const questionId = Number(id)
             ) : null}
           </div>
 
-          <p className="text-black mb-6 leading-relaxed">{question.description}</p>
+          <p className="text-black mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">{question.description}</p>
 
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2 bg-white/30 rounded-lg p-2">
                 <Button variant="ghost" size="sm" onClick={handleUpvote}>
@@ -167,7 +167,7 @@ const questionId = Number(id)
                 </Button>
               </div>
             </div>
-            <div className="text-sm text-gray-700">
+            <div className="text-xs sm:text-sm text-gray-700">
               Asked by{" "}
               <span className="font-medium text-black">
                 {question?.user?.username ?? "Unknown"}
@@ -177,13 +177,13 @@ const questionId = Number(id)
         </div>
 
         {/* Answers */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-[#D3D3FF] mb-6">Answers</h2>
-          <div className="space-y-6">
+        <div className="mb-6 sm:mb-8">
+          <h2 className="text-lg sm:text-xl font-semibold text-[#D3D3FF] mb-4 sm:mb-6">Answers</h2>
+          <div className="space-y-4 sm:space-y-6">
             {answers.map((ans) => (
-              <div key={ans.id} className="bg-[#D3D3FF] border border-gray-700 rounded-xl p-8 shadow-2xl">
-                <div className="flex items-start space-x-6">
-                  <div className="flex flex-col items-center space-y-2 bg-white/30 rounded-lg p-3">
+              <div key={ans.id} className="bg-[#D3D3FF] border border-gray-700 rounded-xl p-4 sm:p-8 shadow-2xl">
+                <div className="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
+                  <div className="flex sm:flex-col items-center sm:items-center space-x-4 sm:space-x-0 sm:space-y-2 bg-white/30 rounded-lg p-2 sm:p-3">
                     <Button variant="ghost" size="sm">
                       <ArrowUp className="h-4 w-4 text-black" />
                     </Button>
@@ -194,9 +194,9 @@ const questionId = Number(id)
                       <ArrowDown className="h-4 w-4 text-black" />
                     </Button>
                   </div>
-                  <div className="flex-1">
-                    <p className="text-black leading-relaxed whitespace-pre-line">{ans.content}</p>
-                    <div className="mt-6 text-sm text-black">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-black leading-relaxed whitespace-pre-line text-sm sm:text-base">{ans.content}</p>
+                    <div className="mt-4 sm:mt-6 text-xs sm:text-sm text-black">
                       Answered by{" "}
                       <span className="font-medium text-black">
                         {ans.user?.username ?? "Unknown"}
@@ -210,16 +210,17 @@ const questionId = Number(id)
         </div>
 
         {/* Submit Answer */}
-        <div className="bg-[#D3D3FF] border border-gray-700 rounded-xl p-8 shadow-2xl">
-          <h3 className="text-lg font-semibold text-black mb-6">Submit Your Answer</h3>
-          <div className="mb-6">
+        <div className="bg-[#D3D3FF] border border-gray-700 rounded-xl p-4 sm:p-8 shadow-2xl">
+          <h3 className="text-base sm:text-lg font-semibold text-black mb-4 sm:mb-6">Submit Your Answer</h3>
+          <div className="mb-4 sm:mb-6">
             <RichTextEditor value={answer} onChange={setAnswer} placeholder="Write your answer here..." />
           </div>
-          <div className="flex items-center justify-between">
-            <Button variant="primary" className="flex items-center space-x-2">
-              <span>✨ Enhance with AI</span>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
+            <Button variant="primary" className="flex items-center justify-center space-x-2 w-full sm:w-auto">
+              <span className="hidden sm:inline">✨ Enhance with AI</span>
+              <span className="sm:hidden">✨ AI</span>
             </Button>
-            <Button variant="primary" onClick={handleSubmit}>Submit</Button>
+            <Button variant="primary" onClick={handleSubmit} className="w-full sm:w-auto">Submit</Button>
           </div>
         </div>
       </div>

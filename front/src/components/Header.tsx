@@ -17,12 +17,12 @@ export default function Header() {
   }
 
   return (
-    <header className=" border-[#D3D3FF] bg-black shadow-sm">
+    <header className="border-[#D3D3FF] bg-black shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Logo and Navigation */}
-          <div className="flex items-center space-x-8">
-            <Link to="/" className="text-2xl font-bold text-purple-200 hover:text-purple-100 transition-colors">
+          <div className="flex items-center space-x-4 sm:space-x-8">
+            <Link to="/" className="text-xl sm:text-2xl font-bold text-purple-200 hover:text-purple-100 transition-colors">
               Stack<span className="text-purple-400">It</span>
             </Link>
 
@@ -40,7 +40,7 @@ export default function Header() {
           </div>
 
           {/* Search Bar */}
-          <div className="flex-1 max-w-md mx-8 hidden md:block">
+          <div className="flex-1 max-w-md mx-4 sm:mx-8 hidden md:block">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#d3d3ff] h-4 w-4" />
               <input
@@ -52,9 +52,9 @@ export default function Header() {
           </div>
 
           {/* User Actions */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             {/* Theme Toggle */}
-            <Button variant="ghost" size="sm" onClick={toggleTheme} className="p-2">
+            <Button variant="ghost" size="sm" onClick={toggleTheme} className="p-1 sm:p-2">
               {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
             </Button>
 
@@ -65,21 +65,20 @@ export default function Header() {
               </Button>
             )}
 
-
             {isAuthenticated ? (
               <>
-                <Button variant="ghost" size="sm" className="p-2 relative">
+                <Button variant="ghost" size="sm" className="p-1 sm:p-2 relative">
                   <Bell className="h-4 w-4" />
                   <span className="absolute -top-1 -right-1 h-2 w-2 bg-purple-500 rounded-full"></span>
                 </Button>
 
-                <div className="flex items-center space-x-3 pl-3 border-l border-[#D3D3FF]">
-                  <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 sm:space-x-3 pl-2 sm:pl-3 border-l border-[#D3D3FF]">
+                  <div className="flex items-center space-x-1 sm:space-x-2">
                     <div className="relative">
                       <img
                         src={user?.avatar || "https://via.placeholder.com/32x32"}
                         alt={user?.name}
-                        className="h-8 w-8 rounded-full border-2 border-[#D3D3FF]"
+                        className="h-6 w-6 sm:h-8 sm:w-8 rounded-full border-2 border-[#D3D3FF]"
                       />
                     </div>
                     <div className="hidden sm:block">
@@ -88,22 +87,24 @@ export default function Header() {
                     </div>
                   </div>
 
-                  <Button variant="ghost" size="sm" onClick={handleLogout} className="p-2">
+                  <Button variant="ghost" size="sm" onClick={handleLogout} className="p-1 sm:p-2">
                     <LogOut className="h-4 w-4" />
                   </Button>
                 </div>
               </>
             ) : (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1 sm:space-x-2">
                 <Link to="/signin">
-                  <Button variant="outline" size="sm">
-                    <User className="h-4 w-4 mr-2" />
-                    Login
+                  <Button variant="outline" size="sm" className="text-xs sm:text-sm">
+                    <User className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Login</span>
+                    <span className="sm:hidden">Sign In</span>
                   </Button>
                 </Link>
                 <Link to="/signup">
-                  <Button variant="primary" size="sm">
-                    Sign Up
+                  <Button variant="primary" size="sm" className="text-xs sm:text-sm">
+                    <span className="hidden sm:inline">Sign Up</span>
+                    <span className="sm:hidden">Sign Up</span>
                   </Button>
                 </Link>
               </div>

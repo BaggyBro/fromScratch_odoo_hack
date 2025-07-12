@@ -59,16 +59,21 @@ export default function AskQuestionPage() {
               />
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-purple-300 border ">
-                Description
-              </label>
-              <RichTextEditor
-                value={description}
-                onChange={setDescription}
-                placeholder="Provide detailed information about your question..."
-              />
-            </div>
+        <div className="space-y-2">
+  <label className="text-sm font-medium text-purple-300">
+    Description
+  </label>
+
+  <div className="rounded-lg border-2 border-[#d3d3ff] bg-purple-200 p-4 text-white">
+    <RichTextEditor 
+      value={description}
+      onChange={setDescription}
+      placeholder="Provide detailed information about your question..."
+    />
+  </div>
+</div>
+
+
 
             <div className="space-y-2">
               <label className="text-sm font-medium text-purple-300">
@@ -85,21 +90,15 @@ export default function AskQuestionPage() {
             </div>
 
             <div className="flex items-center justify-between pt-6 border-t" style={{ borderColor: '#d3d3ff' }}>
-              <Button 
-                type="button" 
-                variant="outline" 
-                size="lg"
-                style={{ borderColor: '#d3d3ff' }}
-              >
-                ✨ Enhance with AI
-              </Button>
+              
               
               <div className="flex gap-4">
                 <Button 
                   type="button" 
-                  variant="ghost" 
+                  variant="primary" 
                   size="lg"
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate("/")
+                  }
                 >
                   Cancel
                 </Button>

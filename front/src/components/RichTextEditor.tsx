@@ -16,8 +16,8 @@ export default function RichTextEditor({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full p-4 border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black"
-      rows={6}
+      className="w-full p-2 sm:p-4 border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-black text-black text-sm sm:text-base"
+      rows={4}
     />
   )
 }
